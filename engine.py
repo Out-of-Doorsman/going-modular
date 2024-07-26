@@ -122,7 +122,8 @@ def train(model: torch.nn.Module,
           optimizer: torch.optim.Optimizer,
           loss_fn: torch.nn.Module,
           epochs: int,
-          device: torch.device) -> Dict[str, List]:
+          device: torch.device,
+          writer: torch.utils.tensorboard.writer.SummaryWriter) -> Dict[str, List]:
     """Trains and tests a PyTorch model.
 
     Passes a target PyTorch models through train_step() and test_step()
@@ -164,6 +165,10 @@ def train(model: torch.nn.Module,
     # Make sure model on target device
     model.to(device)
 
+    for images, labels in train_dataloader:
+      shape = list(images.shape))
+      break
+
     # Loop through training and testing steps for a number of epochs
     for epoch in tqdm(range(epochs)):
         train_loss, train_acc = train_step(model=model,
@@ -190,6 +195,24 @@ def train(model: torch.nn.Module,
         results["train_acc"].append(train_acc)
         results["test_loss"].append(test_loss)
         results["test_acc"].append(test_acc)
+
+        # Add scalars to the writer if writer is present for both accuracy and loss
+        if writer:
+          writer.add_scalars(main_tag="Loss",
+                             tag_scalar_dict={"train_loss": train_loss,
+                                              "test_loss": test_loss},
+                             global_step=epoch)
+          writer.add_scalars(main_tag="Accuracy",
+                             tag_scalar_dict={"train_acc": train_acc,
+                                              "test_acc": test_acc},
+                             global_step=epoch)
+
+          # Add a graph with the correct model shape
+
+          for images, labels in 
+          
+          writer.add_graph(model=model,
+                            input_to_model=torch.randn(shape)
 
     # Return the filled results at the end of the epochs
     return results
