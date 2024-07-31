@@ -209,7 +209,7 @@ def train(model: torch.nn.Module,
 
           # Add a graph with the correct model shape
           writer.add_graph(model=model,
-                            input_to_model=torch.randn(shape)
+                            input_to_model=torch.randn(shape))
 
     # Return the filled results at the end of the epochs
     return results
