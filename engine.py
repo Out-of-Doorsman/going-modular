@@ -208,9 +208,6 @@ def train(model: torch.nn.Module,
                              global_step=epoch)
 
           # Add a graph with the correct model shape
-
-          for images, labels in 
-          
           writer.add_graph(model=model,
                             input_to_model=torch.randn(shape)
 
