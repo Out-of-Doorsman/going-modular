@@ -166,7 +166,7 @@ def train(model: torch.nn.Module,
     model.to(device)
 
     for images, labels in train_dataloader:
-      shape = list(images.shape))
+      shape = list(images.shape)
       break
 
     # Loop through training and testing steps for a number of epochs
